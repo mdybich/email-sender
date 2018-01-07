@@ -1,0 +1,48 @@
+<form
+  class="email-sender-form"
+  [formGroup]="emailSenderForm"
+>
+  <div class="form-header">Wyślij anonimowego maila</div>
+  <div class="form-content">
+    <mat-form-field class="field-container">
+      <input
+        matInput
+        [formControl]="receiverControl"
+        placeholder="Odbiorca"
+      />
+      <mat-error *ngIf="receiverControl?.invalid && receiverControl?.touched">
+        Pole jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-container">
+      <input
+        matInput
+        [formControl]="topicControl"
+        placeholder="Temat"
+      />
+      <mat-error *ngIf="topicControl?.invalid && topicControl?.touched">
+        Pole jest wymagane
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="field-container">
+      <textarea
+        matInput
+        matTextareaAutosize
+        [formControl]="contentControl"
+        placeholder="Treść"
+      ></textarea>
+      <mat-error *ngIf="contentControl?.invalid && contentControl?.touched">
+        Pole jest wymagane
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-footer">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="submitForm()"
+    >
+      Wyślij
+    </button>
+  </div>
+</form>
