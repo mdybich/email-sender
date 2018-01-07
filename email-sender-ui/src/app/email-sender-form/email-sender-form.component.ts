@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmailService } from '../email-service/email.service';
+import { AlertsService } from '@jaspero/ng-alerts';
 
 @Component({
   selector: 'app-email-sender-form',
@@ -14,7 +15,11 @@ export class EmailSenderFormComponent {
 
   emailSenderForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private emailService: EmailService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private emailService: EmailService,
+    private alertsService: AlertsService
+  ) {
     this.initEmailSenderForm();
   }
 
@@ -36,8 +41,13 @@ export class EmailSenderFormComponent {
       return;
     }
 
-    this.emailService.sendEmail(this.emailSenderForm.value).subscribe(response => {
-      console.log('success');
+    this.emailService.sendEmail(this.emailSenderForm.value).subscribe(() => {
+      this.alertsService.create('success', 'Poprawnie wysłano anonimowego maila');
+      this.emailSenderForm.reset({
+        [this.RECEIVER_CONTROL_NAME]: '',
+        [this.TOPIC_CONTROL_NAME]: '',
+        [this.CONTENT_CONTROL_NAME]: ''
+      });
     });
   }
 
