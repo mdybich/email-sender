@@ -36,7 +36,9 @@ export class EmailSenderFormComponent {
       return;
     }
 
-    this.emailService.sendEmail(this.emailSenderForm.value);
+    this.emailService.sendEmail(this.emailSenderForm.value).subscribe(response => {
+      console.log('success');
+    });
   }
 
   private initEmailSenderForm() {
