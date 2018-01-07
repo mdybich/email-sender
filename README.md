@@ -1,1 +1,1 @@
-# email-sender
+# Simple application for sending anonymous emails
